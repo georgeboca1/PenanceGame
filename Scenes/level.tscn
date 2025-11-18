@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://bwk6f53g3dw02"]
+
+[ext_resource type="Script" uid="uid://iyug8mdwwtqd" path="res://Scripts/level.gd" id="1_6phgx"]
+[ext_resource type="PackedScene" uid="uid://cp41di8h5qh0e" path="res://Scenes/player.tscn" id="1_k5f4k"]
+[ext_resource type="Texture2D" uid="uid://duhj7dbn6pecc" path="res://Sprites/Environment/small_grass.png" id="2_0f350"]
+[ext_resource type="PackedScene" uid="uid://ctm6nmqne63nw" path="res://Scenes/enemy.tscn" id="3_6phgx"]
+[ext_resource type="Texture2D" uid="uid://ptinpuoids5e" path="res://Sprites/Environment/small_pebble.png" id="3_8c0lf"]
+[ext_resource type="Script" uid="uid://dbkmr1751ruci" path="res://Scripts/wave_manager.gd" id="4_wqkje"]
+[ext_resource type="Script" uid="uid://c7efdepst3wyf" path="res://Scripts/audio_manager.gd" id="5_0f350"]
+[ext_resource type="Shader" uid="uid://bpl363gs04cwy" path="res://Shaders/floor.gdshader" id="6_bvt00"]
+[ext_resource type="Texture2D" uid="uid://bjsqgpgmafvyh" path="res://Sprites/Environment/grass.png" id="7_oqgf2"]
+[ext_resource type="Script" uid="uid://dvdfk6isv6qq" path="res://Scripts/floor_shader_transmitter.gd" id="8_oqgf2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oqgf2"]
+shader = ExtResource("6_bvt00")
+shader_parameter/world_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/tile_size_in_world_units = Vector2(64, 64)
+shader_parameter/enable_flip_h = true
+shader_parameter/enable_flip_v = true
+shader_parameter/enable_rotation = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_81xng"]
+size = Vector2(150, 40000)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wqkje"]
+size = Vector2(40000, 150)
+
+[sub_resource type="AudioStreamMP3" id="AudioStreamMP3_wqkje"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_6phgx")
+textures = Array[Texture2D]([ExtResource("2_0f350"), ExtResource("3_8c0lf")])
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("1_k5f4k")]
+attack_distance = 100.0
+attack_speed = 1500.0
+attack_cooldown = 0.25
+attack_duration = 0.3
+
+[node name="Floor" type="Sprite2D" parent="Player"]
+z_index = -1
+material = SubResource("ShaderMaterial_oqgf2")
+position = Vector2(17.999985, -5.9999847)
+scale = Vector2(3.99361, 3.0415335)
+texture = ExtResource("7_oqgf2")
+script = ExtResource("8_oqgf2")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="LeftWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(-20000, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/LeftWall"]
+shape = SubResource("RectangleShape2D_81xng")
+
+[node name="RightWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(20000, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/RightWall"]
+shape = SubResource("RectangleShape2D_81xng")
+
+[node name="UpperWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, -20000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/UpperWall"]
+shape = SubResource("RectangleShape2D_wqkje")
+
+[node name="DownWall" type="StaticBody2D" parent="Walls"]
+position = Vector2(0, 20000)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/DownWall"]
+shape = SubResource("RectangleShape2D_wqkje")
+
+[node name="WaveManager" type="Node2D" parent="."]
+script = ExtResource("4_wqkje")
+enemy_scenes = Array[PackedScene]([ExtResource("3_6phgx")])
+player_node = NodePath("../Player")
+initial_max_entities = 500
+enemy_container = NodePath("../Enemies")
+
+[node name="SpawnTimer" type="Timer" parent="WaveManager"]
+wait_time = 0.3
+autostart = true
+
+[node name="AudioManager" type="Node2D" parent="."]
+script = ExtResource("5_0f350")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="AudioManager"]
+stream = SubResource("AudioStreamMP3_wqkje")
+volume_db = -25.212

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Augment" load_steps=2 format=3 uid="uid://dw1xgbq2ugsuc"]
+
+[ext_resource type="Script" uid="uid://d24csnt5jjqqh" path="res://Scripts/augument.gd" id="1_kn60e"]
+
+[resource]
+script = ExtResource("1_kn60e")
+augment_name = "Increase Current Health"
+description = "Heal for 30 points."
+rarity = 2
+stat_to_modify = &"current_health"
+min_value = 30.0
+max_value = 30.0
+metadata/_custom_type_script = "uid://d24csnt5jjqqh"

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://byqo4j2fefyl0"]
+
+[ext_resource type="Script" uid="uid://cjg6gc0u73hss" path="res://Scripts/obstacle.gd" id="1_2p81s"]
+[ext_resource type="Texture2D" uid="uid://tiwomf1mq8x2" path="res://Sprites/Environment/tree.png" id="2_2p81s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_15o2q"]
+size = Vector2(97, 87)
+
+[node name="Obstacle" type="StaticBody2D"]
+script = ExtResource("1_2p81s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2p81s")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(14.5, 17.5)
+shape = SubResource("RectangleShape2D_15o2q")
+debug_color = Color(0, 0.61460435, 0.60887676, 0.41960785)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+position = Vector2(0, 130)
+vertices = PackedVector2Array(-181, -3, -51, -75, 167, -70, 264, 23, 177, 119, -104, 119)

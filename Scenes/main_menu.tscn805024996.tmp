@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvkbx582ljjdr"]
+
+[ext_resource type="Script" uid="uid://rh70v1wk0khi" path="res://main_menu.gd" id="1_28flt"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_28flt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]

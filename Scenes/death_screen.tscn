@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://lqlggplq5afv"]
+
+[ext_resource type="FontFile" uid="uid://sjpcoff1vsg5" path="res://Fonts/PickysideGrungeRegular-7OMol.otf" id="1_rwas2"]
+[ext_resource type="Script" uid="uid://bulerqo8aqi2l" path="res://Scripts/death_screen.gd" id="2_tseak"]
+[ext_resource type="AudioStream" uid="uid://cjfbpfbr5j2wk" path="res://Audio/Menu/death_ambience.wav" id="3_tseak"]
+
+[sub_resource type="Theme" id="Theme_amiou"]
+default_font = ExtResource("1_rwas2")
+default_font_size = 64
+
+[node name="DeathScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_amiou")
+script = ExtResource("2_tseak")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tseak")
+volume_db = -10.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StartMessage" type="Label" parent="."]
+visible = false
+modulate = Color(0.21940601, 0.22386926, 0.22767344, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -66.0
+offset_right = 175.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You died."
+horizontal_alignment = 1
+vertical_alignment = 1
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Retry" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -37.0
+offset_right = 54.5
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "retry"
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Augment" load_steps=2 format=3 uid="uid://bng6yqggmmpax"]
+
+[ext_resource type="Script" uid="uid://d24csnt5jjqqh" path="res://Scripts/augument.gd" id="1_fwco5"]
+
+[resource]
+script = ExtResource("1_fwco5")
+augment_name = "Bonus Health"
+description = "Increases max health by 15-20%.
+"
+rarity = 1
+stat_to_modify = &"max_health"
+mod_type = 1
+min_value = 15.0
+max_value = 20.0
+metadata/_custom_type_script = "uid://d24csnt5jjqqh"

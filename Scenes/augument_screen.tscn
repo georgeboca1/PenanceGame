@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1lfssig3hv7g"]
+
+[ext_resource type="Script" uid="uid://bd5umc635bgkf" path="res://Scripts/AugumentSelection.gd" id="1_rqaa1"]
+
+[node name="AugumentSelection" type="CanvasLayer"]
+script = ExtResource("1_rqaa1")
+
+[node name="UI_Root" type="Control" parent="."]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI_Root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.26666668)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI_Root"]
+custom_minimum_size = Vector2(1100, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -550.0
+offset_top = -250.0
+offset_right = 550.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Card1" type="Button" parent="UI_Root/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Card2" type="Button" parent="UI_Root/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+
+[node name="Card3" type="Button" parent="UI_Root/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2

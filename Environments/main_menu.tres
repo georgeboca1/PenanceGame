@@ -1,0 +1,7 @@
+[gd_resource type="Environment" format=3 uid="uid://bufc84x804ffc"]
+
+[resource]
+background_mode = 1
+background_color = Color(0.50645345, 0.0035151632, 1.4439226e-07, 1)
+adjustment_enabled = true
+adjustment_saturation = 0.01

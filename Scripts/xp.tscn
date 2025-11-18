@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dskwubewhv8hs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wpvj5"]
+
+[sub_resource type="Gradient" id="Gradient_f4keg"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7nh3l"]
+gradient = SubResource("Gradient_f4keg")
+
+[node name="XP" type="Area2D" groups=["XP"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wpvj5")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+scale = Vector2(0.035156257, 7.4999995)
+texture = SubResource("GradientTexture1D_7nh3l")

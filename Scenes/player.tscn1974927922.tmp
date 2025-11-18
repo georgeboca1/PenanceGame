@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cp41di8h5qh0e"]
+
+[ext_resource type="Script" uid="uid://cpymhghhtcjer" path="res://player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://b02sk0rfbuiyi" path="res://icon.svg" id="1_v0iea"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgqql"]
+radius = 65.18833
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_cvnsp")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(-3, 0.9999924)
+scale = Vector2(0.5522461, 0.54541063)
+shape = SubResource("CircleShape2D_vgqql")
+
+[node name="PlayerTexture" type="Sprite2D" parent="."]
+position = Vector2(-3, 0.9999924)
+scale = Vector2(0.5522461, 0.54541063)
+texture = ExtResource("1_v0iea")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

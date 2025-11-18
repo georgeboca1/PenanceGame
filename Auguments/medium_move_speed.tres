@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Augment" load_steps=2 format=3 uid="uid://ce6aqw3nriglv"]
+
+[ext_resource type="Script" uid="uid://d24csnt5jjqqh" path="res://Scripts/augument.gd" id="1_woy8l"]
+
+[resource]
+script = ExtResource("1_woy8l")
+augment_name = "Bonus Move Speed"
+description = "Increase movement speed by 10%"
+rarity = 1
+stat_to_modify = &"speed"
+mod_type = 1
+min_value = 10.0
+max_value = 10.0
+metadata/_custom_type_script = "uid://d24csnt5jjqqh"

@@ -1,0 +1,169 @@
+[gd_scene load_steps=10 format=3 uid="uid://bvkbx582ljjdr"]
+
+[ext_resource type="Script" uid="uid://rh70v1wk0khi" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="AudioStream" uid="uid://d1he87sohqcfm" path="res://Audio/Menu/menutheme.mp3" id="2_48xlc"]
+[ext_resource type="FontFile" uid="uid://sjpcoff1vsg5" path="res://Fonts/PickysideGrungeRegular-7OMol.otf" id="3_yhxw7"]
+[ext_resource type="Texture2D" uid="uid://ec8ivg2x18a8" path="res://Sprites/Menu/button_frame.png" id="4_n45e2"]
+[ext_resource type="Texture2D" uid="uid://b1tuss47r7yld" path="res://Sprites/Menu/Fog/fog.tres" id="5_cp0ys"]
+[ext_resource type="Shader" uid="uid://c21ldvnxp5u4k" path="res://Shaders/fog_menu.gdshader" id="5_opfnp"]
+[ext_resource type="Texture2D" uid="uid://cn0m1v4ck5mjd" path="res://Sprites/Menu/logo.png" id="10_16hvj"]
+
+[sub_resource type="Theme" id="Theme_trj04"]
+default_font = ExtResource("3_yhxw7")
+default_font_size = 32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cp0ys"]
+shader = ExtResource("5_opfnp")
+shader_parameter/fog_texture = ExtResource("5_cp0ys")
+shader_parameter/fog_color = Color(0.99999994, 0.15791407, 0.23098102, 1)
+shader_parameter/scroll_speed = -0.03
+shader_parameter/fade_top_distance = 0.4
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_28flt")
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_48xlc")
+volume_db = -30.0
+autoplay = true
+parameters/looping = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_trj04")
+
+[node name="BackgroundImage" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 126.0
+offset_top = 92.0
+offset_right = 461.0
+offset_bottom = 224.0
+theme_override_font_sizes/font_size = 128
+text = "PENANCE"
+
+[node name="Fog" type="ColorRect" parent="CanvasLayer/Control"]
+material = SubResource("ShaderMaterial_cp0ys")
+layout_mode = 0
+offset_left = -117.0
+offset_top = 275.0
+offset_right = 1239.0
+offset_bottom = 874.0
+rotation = -0.17816542
+color = Color(0.62044364, 0.13532394, 0.19976199, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayTexture" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 237.0
+offset_right = 454.0
+offset_bottom = 370.0
+texture = ExtResource("4_n45e2")
+expand_mode = 1
+
+[node name="Play" type="Button" parent="CanvasLayer/Control/PlayTexture"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 31.0
+offset_right = 288.0
+offset_bottom = 99.0
+text = "PLAY"
+flat = true
+
+[node name="OptionsTexture" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 140.0
+offset_top = 331.0
+offset_right = 454.0
+offset_bottom = 464.0
+texture = ExtResource("4_n45e2")
+expand_mode = 1
+
+[node name="Options" type="Button" parent="CanvasLayer/Control/OptionsTexture"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 31.0
+offset_right = 288.0
+offset_bottom = 99.0
+text = "OPTIONS"
+flat = true
+
+[node name="ExitTexture" type="TextureRect" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 141.0
+offset_top = 426.0
+offset_right = 455.0
+offset_bottom = 559.0
+texture = ExtResource("4_n45e2")
+expand_mode = 1
+
+[node name="Exit" type="Button" parent="CanvasLayer/Control/ExitTexture"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 31.0
+offset_right = 288.0
+offset_bottom = 99.0
+text = "EXIT"
+flat = true
+
+[node name="Credits" type="Label" parent="CanvasLayer/Control"]
+layout_direction = 3
+layout_mode = 0
+offset_left = 15.0
+offset_top = 17.0
+offset_right = 462.0
+offset_bottom = 122.0
+text = "Credits: Bucur Mario Catalin & Boca Gheorghe
+EGC Project
+v.0.0.1"
+
+[node name="FadeScreen" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/FadeScreen"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.277
+anchor_top = 0.128
+anchor_right = 0.72200006
+anchor_bottom = 0.836
+offset_left = -0.104003906
+offset_top = 0.055999756
+offset_right = 0.2559204
+offset_bottom = 0.27197266
+texture = ExtResource("10_16hvj")
+expand_mode = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[connection signal="pressed" from="CanvasLayer/Control/PlayTexture/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/OptionsTexture/Options" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/ExitTexture/Exit" to="." method="_on_exit_pressed"]
