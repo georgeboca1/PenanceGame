@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Augment" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://d24csnt5jjqqh" path="res://Scripts/augument.gd" id="1_damage_s"]
+
+[resource]
+script = ExtResource("1_damage_s")
+augment_name = "Small Damage Boost"
+description = "Increases damage by 1-2 points."
+rarity = 0
+stat_to_modify = &"damage"
+mod_type = 0
+min_value = 1.0
+max_value = 2.0
+metadata/_custom_type_script = "uid://d24csnt5jjqqh"

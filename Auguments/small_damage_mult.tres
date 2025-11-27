@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Augment" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://d24csnt5jjqqh" path="res://Scripts/augument.gd" id="1_dm_s"]
+
+[resource]
+script = ExtResource("1_dm_s")
+augment_name = "Small Damage Multiplier"
+description = "Increases damage by 5-10%."
+rarity = 0
+stat_to_modify = &"damage"
+mod_type = 1
+min_value = 5.0
+max_value = 10.0
+metadata/_custom_type_script = "uid://d24csnt5jjqqh"

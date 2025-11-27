@@ -10,6 +10,7 @@ func _ready() -> void:
 	player = get_node("/root/World/Player")
 	gravity_scale = 0 
 	lock_rotation = true 
+	$AnimatedSprite2D.play()
 
 func _physics_process(_delta: float) -> void:
 	if player == null or player.current_player_status == 0:

@@ -24,7 +24,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.26666668)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI_Root"]
-custom_minimum_size = Vector2(1100, 500)
+custom_minimum_size = Vector2(1800, 800)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,13 +41,16 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Card1" type="Button" parent="UI_Root/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 
 [node name="Card2" type="Button" parent="UI_Root/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 32
 
 [node name="Card3" type="Button" parent="UI_Root/HBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
+theme_override_font_sizes/font_size = 32

@@ -1,4 +1,5 @@
 # PlayerStats.gd
+@tool
 extends Resource
 class_name PlayerStats
 

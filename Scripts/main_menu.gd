@@ -9,6 +9,7 @@ var backgrounds: Array = [
 ]
 
 func _ready() -> void:
+	fadescreen.visible = true
 	var img = Image.load_from_file(backgrounds[0])
 	_texture.texture = ImageTexture.create_from_image(img)
 	

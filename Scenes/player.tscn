@@ -1,12 +1,16 @@
-[gd_scene load_steps=57 format=3 uid="uid://cp41di8h5qh0e"]
+[gd_scene load_steps=51 format=3 uid="uid://cp41di8h5qh0e"]
 
 [ext_resource type="Script" uid="uid://cpymhghhtcjer" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Resource" uid="uid://uq646s0xotxt" path="res://Scripts/PlayerStats.tres" id="2_8erm5"]
 [ext_resource type="Texture2D" uid="uid://do8xmoryys571" path="res://Sprites/Player/attack.png" id="3_6t5aa"]
 [ext_resource type="Texture2D" uid="uid://cisfvmrs5q0c6" path="res://Sprites/Player/ATTACK 1.png" id="4_3smsa"]
 [ext_resource type="Texture2D" uid="uid://wmdqsh45vxnv" path="res://Sprites/Player/HURT.png" id="5_8erm5"]
-[ext_resource type="Texture2D" uid="uid://du023qr4tmck2" path="res://Sprites/Player/IDLE.png" id="6_f1ek2"]
+[ext_resource type="Texture2D" uid="uid://lvaot83btesv" path="res://Sprites/Player/movement/east.png" id="6_gymyn"]
 [ext_resource type="PackedScene" uid="uid://b1lfssig3hv7g" path="res://Scenes/augument_screen.tscn" id="7_3smsa"]
+[ext_resource type="Texture2D" uid="uid://unrb3dji7kh5" path="res://Sprites/Player/movement/north.png" id="7_pu2lt"]
 [ext_resource type="Texture2D" uid="uid://dabd3kf20n4el" path="res://Sprites/Player/RUN.png" id="7_tx1dd"]
+[ext_resource type="Texture2D" uid="uid://cfmskmqld8cii" path="res://Sprites/Player/movement/south.png" id="8_ukyrk"]
+[ext_resource type="Texture2D" uid="uid://dev0miwklm0ib" path="res://Sprites/Player/movement/west.png" id="9_7dp3o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t5aa"]
 size = Vector2(135.80902, 128.34367)
@@ -119,46 +123,6 @@ region = Rect2(192, 0, 96, 96)
 atlas = ExtResource("5_8erm5")
 region = Rect2(288, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wpjfl"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bi64h"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(96, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2ijsl"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(192, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p1odr"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(288, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0gysh"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(384, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vfarp"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(480, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_y6uwr"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(576, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_83xs0"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(672, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ypfnu"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(768, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xuaoq"]
-atlas = ExtResource("6_f1ek2")
-region = Rect2(864, 0, 96, 96)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_wohnl"]
 atlas = ExtResource("7_tx1dd")
 region = Rect2(0, 0, 96, 96)
@@ -270,37 +234,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_wpjfl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bi64h")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2ijsl")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p1odr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0gysh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vfarp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y6uwr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_83xs0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ypfnu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xuaoq")
+"texture": ExtResource("6_gymyn")
 }],
 "loop": true,
-"name": &"IDLE",
+"name": &"IDLE_E",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_pu2lt")
+}],
+"loop": true,
+"name": &"IDLE_N",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ukyrk")
+}],
+"loop": true,
+"name": &"IDLE_S",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_7dp3o")
+}],
+"loop": true,
+"name": &"IDLE_W",
 "speed": 5.0
 }, {
 "frames": [{
@@ -359,6 +320,7 @@ animations = [{
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_cvnsp")
+stats = ExtResource("2_8erm5")
 
 [node name="DamageArea" type="Area2D" parent="."]
 scale = Vector2(0.5522461, 0.54541063)
@@ -411,12 +373,16 @@ grow_horizontal = 2
 show_percentage = false
 
 [node name="Label" type="Label" parent="PlayerCamera/UI/LevelBar"]
-layout_mode = 0
-offset_left = 511.0
-offset_top = 4.0
-offset_right = 652.0
-offset_bottom = 28.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -70.5
+offset_right = 70.5
+offset_bottom = 24.0
+grow_horizontal = 2
 text = "Level: 1"
+horizontal_alignment = 1
 
 [node name="ColorRect" type="ColorRect" parent="PlayerCamera/UI"]
 process_mode = 3
@@ -426,6 +392,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
+
+[node name="DebugInfo" type="Label" parent="PlayerCamera/UI"]
+offset_left = 24.0
+offset_top = 220.0
+offset_right = 394.0
+offset_bottom = 490.0
+text = "Test"
 
 [node name="AttackHitbox" type="Area2D" parent="."]
 
@@ -440,10 +413,9 @@ sprite_frames = SubResource("SpriteFrames_tx1dd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-position = Vector2(-14, -33)
-scale = Vector2(2.1770833, 2.0208333)
+scale = Vector2(1.328125, 1.1979166)
 sprite_frames = SubResource("SpriteFrames_8eeqe")
-animation = &"RUNNING"
+animation = &"IDLE_E"
 
 [node name="DamageTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -457,3 +429,4 @@ one_shot = true
 [connection signal="body_exited" from="DamageArea" to="." method="_on_damage_area_body_exited"]
 [connection signal="body_entered" from="DashDamageArea" to="." method="_on_dash_damage_area_body_entered"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hitbox_body_entered"]
+[connection signal="augment_selected" from="AugumentSelection" to="." method="_on_augument_selection_augment_selected"]

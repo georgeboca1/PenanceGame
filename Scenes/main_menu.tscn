@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvkbx582ljjdr"]
+[gd_scene load_steps=9 format=3 uid="uid://bvkbx582ljjdr"]
 
 [ext_resource type="Script" uid="uid://rh70v1wk0khi" path="res://Scripts/main_menu.gd" id="1_28flt"]
 [ext_resource type="AudioStream" uid="uid://d1he87sohqcfm" path="res://Audio/Menu/menutheme.mp3" id="2_48xlc"]
 [ext_resource type="FontFile" uid="uid://sjpcoff1vsg5" path="res://Fonts/PickysideGrungeRegular-7OMol.otf" id="3_yhxw7"]
-[ext_resource type="Texture2D" uid="uid://ec8ivg2x18a8" path="res://Sprites/Menu/button_frame.png" id="4_n45e2"]
 [ext_resource type="Texture2D" uid="uid://b1tuss47r7yld" path="res://Sprites/Menu/Fog/fog.tres" id="5_cp0ys"]
 [ext_resource type="Shader" uid="uid://c21ldvnxp5u4k" path="res://Shaders/fog_menu.gdshader" id="5_opfnp"]
 [ext_resource type="Texture2D" uid="uid://cn0m1v4ck5mjd" path="res://Sprites/Menu/logo.png" id="10_16hvj"]
@@ -15,9 +14,9 @@ default_font_size = 32
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cp0ys"]
 shader = ExtResource("5_opfnp")
 shader_parameter/fog_texture = ExtResource("5_cp0ys")
-shader_parameter/fog_color = Color(0.99999994, 0.15791407, 0.23098102, 1)
+shader_parameter/fog_color = Color(0.28097823, 0.29068157, 0.2519171, 1)
 shader_parameter/scroll_speed = -0.03
-shader_parameter/fade_top_distance = 0.4
+shader_parameter/fade_top_distance = 0.65300003031898
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_28flt")
@@ -52,77 +51,59 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Title" type="Label" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 126.0
+offset_left = 402.0
 offset_top = 92.0
-offset_right = 461.0
-offset_bottom = 224.0
-theme_override_font_sizes/font_size = 128
+offset_right = 1072.0
+offset_bottom = 355.0
+theme_override_font_sizes/font_size = 256
 text = "PENANCE"
 
 [node name="Fog" type="ColorRect" parent="CanvasLayer/Control"]
 material = SubResource("ShaderMaterial_cp0ys")
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.18125004
+anchor_top = -0.16944444
+anchor_right = 0.46813747
+anchor_bottom = 0.910914
 offset_left = -117.0
 offset_top = 275.0
 offset_right = 1239.0
 offset_bottom = 874.0
 rotation = -0.17816542
+mouse_filter = 2
 color = Color(0.62044364, 0.13532394, 0.19976199, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="PlayTexture" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="Buttons" type="VBoxContainer" parent="CanvasLayer/Control"]
+custom_minimum_size = Vector2(500, 50)
 layout_mode = 0
-offset_left = 140.0
-offset_top = 237.0
-offset_right = 454.0
-offset_bottom = 370.0
-texture = ExtResource("4_n45e2")
-expand_mode = 1
+offset_left = 416.0
+offset_top = 400.0
+offset_right = 1072.0
+offset_bottom = 851.0
+mouse_filter = 2
+theme_override_constants/separation = 21
 
-[node name="Play" type="Button" parent="CanvasLayer/Control/PlayTexture"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 31.0
-offset_right = 288.0
-offset_bottom = 99.0
-text = "PLAY"
-flat = true
+[node name="Play" type="Button" parent="CanvasLayer/Control/Buttons"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Play"
 
-[node name="OptionsTexture" type="TextureRect" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 140.0
-offset_top = 331.0
-offset_right = 454.0
-offset_bottom = 464.0
-texture = ExtResource("4_n45e2")
-expand_mode = 1
+[node name="Options" type="Button" parent="CanvasLayer/Control/Buttons"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Options
+"
 
-[node name="Options" type="Button" parent="CanvasLayer/Control/OptionsTexture"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 31.0
-offset_right = 288.0
-offset_bottom = 99.0
-text = "OPTIONS"
-flat = true
-
-[node name="ExitTexture" type="TextureRect" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 141.0
-offset_top = 426.0
-offset_right = 455.0
-offset_bottom = 559.0
-texture = ExtResource("4_n45e2")
-expand_mode = 1
-
-[node name="Exit" type="Button" parent="CanvasLayer/Control/ExitTexture"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 31.0
-offset_right = 288.0
-offset_bottom = 99.0
-text = "EXIT"
-flat = true
+[node name="Exit" type="Button" parent="CanvasLayer/Control/Buttons"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Exit
+"
 
 [node name="Credits" type="Label" parent="CanvasLayer/Control"]
 layout_direction = 3
@@ -136,6 +117,7 @@ EGC Project
 v.0.0.1"
 
 [node name="FadeScreen" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,12 +140,12 @@ offset_left = -0.104003906
 offset_top = 0.055999756
 offset_right = 0.2559204
 offset_bottom = 0.27197266
+mouse_filter = 2
 texture = ExtResource("10_16hvj")
 expand_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(960, 540)
 
-[connection signal="pressed" from="CanvasLayer/Control/PlayTexture/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/OptionsTexture/Options" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/ExitTexture/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/Buttons/Exit" to="." method="_on_exit_pressed"]

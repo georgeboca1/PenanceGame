@@ -1,7 +1,57 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctm6nmqne63nw"]
+[gd_scene load_steps=11 format=3 uid="uid://ctm6nmqne63nw"]
 
 [ext_resource type="Script" uid="uid://b2xaxu76heu4l" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://b02sk0rfbuiyi" path="res://icon.svg" id="1_hghv2"]
+[ext_resource type="Texture2D" uid="uid://qnmfxj4wyvbb" path="res://Sprites/Enemy/monster_walk.png" id="2_1f0kj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afpow"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_287tu"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0830c"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghaa6"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dp5w"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_auwsv"]
+atlas = ExtResource("2_1f0kj")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8uf12"]
+animations = [{
+"frames": [{
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_afpow")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_287tu")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_0830c")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_ghaa6")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_1dp5w")
+}, {
+"duration": 0.6,
+"texture": SubResource("AtlasTexture_auwsv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1f0kj"]
 radius = 47.942673
@@ -9,10 +59,11 @@ radius = 47.942673
 [node name="Enemy" type="RigidBody2D" groups=["enemies"]]
 script = ExtResource("1_1f0kj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.75598145, 0.74890137)
-texture = ExtResource("1_hghv2")
-flip_v = true
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(6, -25)
+scale = Vector2(1.2710266, 1.1676939)
+sprite_frames = SubResource("SpriteFrames_8uf12")
+frame_progress = 0.50313646
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1f0kj")

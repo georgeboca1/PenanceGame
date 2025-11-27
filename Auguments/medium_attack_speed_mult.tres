@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Augment" load_steps=2 format=3]
+
+[ext_resource type="Script" uid="uid://d24csnt5jjqqh" path="res://Scripts/augument.gd" id="1_as_m"]
+
+[resource]
+script = ExtResource("1_as_m")
+augment_name = "Medium Attack Speed"
+description = "Increases attack speed by 20-30%."
+rarity = 1
+stat_to_modify = &"attack_speed"
+mod_type = 1
+min_value = 20.0
+max_value = 30.0
+metadata/_custom_type_script = "uid://d24csnt5jjqqh"

@@ -64,6 +64,7 @@ func _on_card_pressed(card_index: int):
 	
 	# 1. Emit the signal with the chosen data
 	augment_selected.emit(chosen_augment, chosen_value)
+	#$...stats.apply_augument()
 	
 	# 2. Hide UI and unpause
 	ui_root.visible = false

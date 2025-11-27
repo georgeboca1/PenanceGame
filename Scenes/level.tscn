@@ -8,13 +8,13 @@
 [ext_resource type="Script" uid="uid://dbkmr1751ruci" path="res://Scripts/wave_manager.gd" id="4_wqkje"]
 [ext_resource type="Script" uid="uid://c7efdepst3wyf" path="res://Scripts/audio_manager.gd" id="5_0f350"]
 [ext_resource type="Shader" uid="uid://bpl363gs04cwy" path="res://Shaders/floor.gdshader" id="6_bvt00"]
-[ext_resource type="Texture2D" uid="uid://bjsqgpgmafvyh" path="res://Sprites/Environment/grass.png" id="7_oqgf2"]
+[ext_resource type="Texture2D" uid="uid://dqb32a0wseasb" path="res://Sprites/Environment/ground2.png" id="6_oqgf2"]
 [ext_resource type="Script" uid="uid://dvdfk6isv6qq" path="res://Scripts/floor_shader_transmitter.gd" id="8_oqgf2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_oqgf2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qxfql"]
 shader = ExtResource("6_bvt00")
 shader_parameter/world_matrix = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
-shader_parameter/tile_size_in_world_units = Vector2(64, 64)
+shader_parameter/tile_size_in_world_units = Vector2(512, 512)
 shader_parameter/enable_flip_h = true
 shader_parameter/enable_flip_v = true
 shader_parameter/enable_rotation = true
@@ -41,11 +41,11 @@ attack_duration = 0.3
 
 [node name="Floor" type="Sprite2D" parent="Player"]
 z_index = -1
-material = SubResource("ShaderMaterial_oqgf2")
-position = Vector2(17.999985, -5.9999847)
-scale = Vector2(3.99361, 3.0415335)
-texture = ExtResource("7_oqgf2")
+material = SubResource("ShaderMaterial_qxfql")
+scale = Vector2(12.355469, 7.390625)
+texture = ExtResource("6_oqgf2")
 script = ExtResource("8_oqgf2")
+tile_size = Vector2(256, 256)
 
 [node name="Walls" type="Node2D" parent="."]
 

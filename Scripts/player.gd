@@ -13,6 +13,9 @@ extends CharacterBody2D
 @export var attack_cooldown: float = 0.5
 @export var attack_duration: float = 0.1
 
+@onready var screen_dimension: Vector2 = Vector2.ZERO
+@onready var half_x_screen: float = -1
+@onready var half_y_screen: float = -1
 # PLAYER STATUS
 enum P_STATE {
 	DEAD,
@@ -42,23 +45,11 @@ enum PLAYER_ACTIONS {
 @export var third_ability_cooldown: float = 3
 
 # PLAYER STATS
-# Current player health
-@export var health = 100
-# How much the health of the player can increase (from power-ups)
-@export var max_health = 100
-# How much damage a basic attack does
-@export var damage: float = 10
-# Gets multiplied with final damage
-@export var damage_multiplier: float = 1.0
-@export var dodge_chance: float = 0
-@export var move_speed: float = 300
-#This multiplies with the final speed of the player
-@export var move_speed_multiplier: float = 1.0
-#This is the xp of the player, level increases when
-#xp gets to a certain number, then resets to 0
-@export var xp_level: float = 0
-@export var level: int = 1
-@export var level_treshhold: int = 0
+var xp = 0
+var level = 1
+var xp_to_next_level = 100
+
+
 
 @export var knockback_vector: Vector2 = Vector2.ZERO
 @export var knockback_strength: float = 400.0 # How hard you get hit
@@ -77,6 +68,8 @@ var enemy_near_player: bool = false
 var enemy_position: Vector2 = Vector2.ZERO
 
 
+signal health_changed(current_health, max_health)
+
 #We use this multiplier to calculate the threshhold needed for the next level
 # (e.g.) xp_needed = (level * level_threshold_multipler * 100)
 @export var level_threshold_multiplier: float = 1.5
@@ -88,18 +81,38 @@ var enemy_position: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	disable_attack_hitbox()
-	level_treshhold = calculate_level_threshold()
+	xp_to_next_level = calculate_level_threshold()
+	if stats != null:
+		stats.current_health = stats.max_health
+	health_changed.connect(func(current_health, max_health):
+		ui_health.value = current_health
+		ui_health.max_value = max_health
+	)
+	health_changed.emit(stats.current_health, stats.max_health)
+	
+	screen_dimension = get_viewport().get_visible_rect().size
+	half_x_screen = screen_dimension.x / 2
+	half_y_screen = screen_dimension.y / 2
 	
 func _process(_delta: float) -> void:
 	if not is_attacking:
 		attack_hitbox.position = calculate_collider_position()
 		attack_hitbox.rotation = calculate_collider_rotation()
 	
-	ui_health.value = health
-	ui_level_bar.value = xp_level
-	ui_level_bar.max_value = level_treshhold
+	ui_level_bar.value = xp
+	ui_level_bar.max_value = xp_to_next_level
 
 func _physics_process(delta: float) -> void:
+	$PlayerCamera/UI/DebugInfo.text = "Health: {h}\nMoveSpeed: {ms}\nDamage: {dmg}\nMaxHealth: {mh},\nAttSpd:{at}".format(
+		{
+			"h": stats.current_health,
+			"ms": stats.speed,
+			"dmg": stats.damage,
+			"mh": stats.max_health,
+			"at": stats.attack_speed
+		}
+	)
+	
 	match current_player_status:
 		P_STATE.ALIVE:
 			handle_alive_motion(delta)
@@ -112,7 +125,7 @@ func calculate_level_threshold():
 	return level * level_threshold_multiplier * 100
 
 func level_up():
-	xp_level = 0
+	xp = 0
 	level += 1
 	print("LEVEL UP! Reached level %s" % level)
 	
@@ -121,6 +134,7 @@ func level_up():
 	
 	# 2. Tell the UI to show them
 	augment_screen.show_selection(choices)
+	xp_to_next_level = calculate_level_threshold()
 
 func death_screen():
 	#var timer = Timer.new()
@@ -139,15 +153,28 @@ func death_screen():
 	get_tree().change_scene_to_file("res://Scenes/death_screen.tscn")
 
 func handle_player_animations():
-	if velocity.x <= 0:
-		sprite.flip_h = true
-	else:
-		sprite.flip_h = false
-		
+	var vec2_mouse = get_viewport().get_mouse_position()
 	match current_player_action:
 		PLAYER_ACTIONS.IDLE:
 			sprite.speed_scale = 1.0
-			sprite.play("IDLE")
+			# Calculate how far the mouse is from the center on each axis
+			var dist_x = vec2_mouse.x - half_x_screen
+			var dist_y = vec2_mouse.y - half_y_screen
+		
+		# Compare absolute distances to see which pull is stronger
+			if abs(dist_x) > abs(dist_y):
+			# Horizontal pull is stronger
+				if dist_x > 0:
+					sprite.play("IDLE_E")
+				else:
+					sprite.play("IDLE_W")
+			else:
+			# Vertical pull is stronger
+				if dist_y > 0:
+					sprite.play("IDLE_S")
+				else:
+					sprite.play("IDLE_N")
+					
 		PLAYER_ACTIONS.DYING:
 			sprite.speed_scale = 1.0
 			sprite.play("DYING")
@@ -172,9 +199,10 @@ func check_health_status():
 		$DamageTimer.start()
 		var direction = (global_position - enemy_position).normalized()
 		knockback_vector = direction * knockback_strength
-		health -= 10
+		stats.current_health -= 10
+		health_changed.emit(stats.current_health, stats.max_health)
 	
-	if health <= 0:
+	if stats.current_health <= 0:
 		current_player_status = P_STATE.DEAD
 
 func handle_alive_motion(delta):
@@ -183,14 +211,14 @@ func handle_alive_motion(delta):
 	if horizontal_direction:
 		velocity.x = horizontal_direction
 	else:
-		velocity.x = move_toward(velocity.x, 0, move_speed * move_speed_multiplier)
+		velocity.x = move_toward(velocity.x, 0, stats.speed)
 		
 	if vertical_direction:
 		velocity.y = vertical_direction
 	else:
-		velocity.y = move_toward(velocity.y, 0, move_speed * move_speed_multiplier)
+		velocity.y = move_toward(velocity.y, 0, stats.speed)
 		
-	velocity = velocity.normalized() * move_speed * move_speed_multiplier
+	velocity = velocity.normalized() * stats.speed
 	
 	if Input.is_action_just_pressed("first_ability") and is_dash_ready:
 		start_dash()
@@ -309,21 +337,21 @@ func ease_in_out(x: float) -> float:
 func ease_out(t: float) -> float:
 	return sin(t * PI * 0.5)
 
-func increase_xp(xp: int):
-	xp_level += xp
-	$PlayerCamera/UI/LevelBar/Label.text = "Level: {level} - {xp_level}/{threshold}".format(
+func increase_xp(xp_amount: int):
+	xp += xp_amount
+	$PlayerCamera/UI/LevelBar/Label.text = "Level: {level} - {xp}/{threshold}".format(
 			{
 				"level" : level,
- 				"xp_level" : xp_level,
- 				"threshold" : level_treshhold
+ 				"xp" : xp,
+ 				"threshold" : xp_to_next_level
 			}
 		)
-	if xp_level > calculate_level_threshold():
+	if xp > calculate_level_threshold():
 		level_up()
 		
 func _on_attack_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies"):
-		body.call("take_damage", 20)
+		body.call("take_damage", stats.damage)
 
 
 func _on_damage_area_body_entered(body: Node2D) -> void:
@@ -338,10 +366,14 @@ func _on_damage_area_body_exited(body: Node2D) -> void:
 
 func _on_damage_area_area_entered(area: Area2D) -> void:
 		if area.is_in_group("XP"):
-			xp_level += 10
-			print(str(xp_level) + "/" + str(level_treshhold))
+			increase_xp(10)
+			print(str(xp) + "/" + str(xp_to_next_level))
 			area.queue_free()
 
 func _on_dash_damage_area_body_entered(body: Node2D) -> void:
 	if is_dashing and body.is_in_group("enemies"):
 		body.take_damage(100)
+
+
+func _on_augument_selection_augment_selected(augment_resource: Variant, applied_value: Variant) -> void:
+	stats.apply_augment(augment_resource.stat_to_modify, augment_resource.mod_type, applied_value)
